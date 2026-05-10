@@ -8,68 +8,15 @@ const AboutSection: React.FC = () => {
         const birthDate = new Date(2006, 5, 19);
         const today = new Date();
         let years = today.getFullYear() - birthDate.getFullYear();
-
         const hasBirthdayPassed =
             today.getMonth() > birthDate.getMonth() ||
-            (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
-
+            (today.getMonth() === birthDate.getMonth() &&
+                today.getDate() >= birthDate.getDate());
         if (!hasBirthdayPassed) years--;
         return years;
     }, []);
 
-    return (
-        <section id="about" className="bg-neutral-950 min-h-screen flex items-center py-20 relative overflow-hidden">
-            {/* мягкий фон */}
-            <div className="absolute -top-50 -right-32 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl animate-pulse-slow" />
-
-            <div className="max-w-6xl mx-auto px-6 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    {/* текст */}
-                    <div>
-                        <h2 className="text-4xl font-bold text-orange-500 mb-6">About Me</h2>
-                        <p className="text-gray-400 mb-6 text-lg leading-relaxed">
-                            I&apos;m a {age}-year-old developer from Almaty with expertise in creating web applications, bots, and
-                            automation solutions. I specialize in both frontend and backend development, always eager to tackle interesting
-                            challenges.
-                        </p>
-                        <p className="text-gray-400 mb-8 text-lg leading-relaxed">
-                            When I&apos;m not coding, you&apos;ll find me exploring mountains and practicing hiking or mountaineering. I
-                            love bringing creative ideas to life through technology.
-                        </p>
-
-                        {/* стек */}
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {technologies.map((tech) => (
-                                <div
-                                    key={tech.name}
-                                    className="p-4 bg-gradient-to-br from-gray-800/60 to-gray-900/60 border border-orange-500/30 rounded-xl text-center hover:bg-orange-500/20 hover:-translate-y-1 transition-all duration-300"
-                                >
-                                    <div className="mb-2 flex justify-center">{tech.icon}</div>
-                                    <span className="text-sm text-gray-300">{tech.name}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* декоративная часть */}
-                    <div className="hidden lg:flex items-center justify-center relative">
-                        {/* декоративная часть с код-блоком */}
-                        <div className="hidden lg:flex items-center justify-center relative">
-                            <div className="bg-neutral-900/80 border border-orange-500/30 rounded-xl shadow-xl backdrop-blur p-6 w-[420px] text-left font-mono text-sm leading-relaxed">
-                                <SyntaxHighlighter
-                                    language="python"
-                                    style={oneDark}
-                                    customStyle={{
-                                        background: "rgba(23, 23, 23, 0.8)",
-                                        border: "1px solid rgba(249, 115, 22, 0.3)",
-                                        borderRadius: "12px",
-                                        padding: "24px",
-                                        width: "420px",
-                                        fontSize: "14px",
-                                        fontFamily: "ui-monospace, SFMono-Regular, monospace",
-                                    }}
-                                >
-                                    {`from typing import Tuple, List, Dict
+    const codeSnippet = `from typing import Tuple, List, Dict
 
 class damirTAG:
     def __init__(self):
@@ -97,13 +44,96 @@ class Attributes(damirTAG):
             "night_owl"         : True,
             "coffee_addicted"   : False,
             "hyperfix_addicted" : True
-        }`}
-                                </SyntaxHighlighter>
-                            </div>
+        }`;
 
-                            {/* подсветка вокруг */}
-                            <div className="absolute inset-0 -z-10 flex justify-center items-center">
-                                <div className="w-[500px] h-[500px] bg-orange-500/10 rounded-full blur-3xl animate-pulse-slow" />
+    return (
+        <section
+            id="about"
+            className="w-full py-24"
+        >
+
+            <div className="max-w-6xl mx-auto px-6 relative z-10 w-full">
+                {/* Section header */}
+                <div className="mb-14">
+                    <p className="text-xs font-mono tracking-[0.3em] uppercase text-orange-500/60 mb-2">
+                        02 / about
+                    </p>
+                    <h2 className="text-4xl font-bold text-white">
+                        Who I{" "}
+                        <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+                            am
+                        </span>
+                    </h2>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
+                    {/* Left: text + stats + stack */}
+                    <div className="flex flex-col gap-8">
+                        <div className="space-y-4 text-gray-400 text-lg leading-relaxed">
+                            <p>
+                                I&apos;m a{" "}
+                                <span className="text-orange-400 font-medium">
+                                    {age}-year-old backend developer
+                                </span>{" "}
+                                from Almaty with 2+ years of commercial experience building
+                                high-load distributed systems. Specialized in microservice
+                                architecture, event-driven systems, and performance optimization.
+                            </p>
+                            <p>
+                                Full dev-cycle experience — from architecture design to deployment
+                                and production support. Worked across fintech, crypto, and
+                                enterprise CRM/ERP domains.
+                            </p>
+                            <p>
+                                When I&apos;m not shipping features, you&apos;ll find me in the
+                                mountains — hiking or mountaineering around Almaty.
+                            </p>
+                        </div>
+
+                        {/* Tech stack */}
+                        <div>
+                            <p className="text-xs font-mono tracking-widest uppercase text-orange-500/50 mb-4">
+                                Tech Stack
+                            </p>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                {technologies.map((tech) => (
+                                    <div
+                                        key={tech.name}
+                                        className="p-3 bg-gradient-to-br from-gray-800/60 to-gray-900/60 border border-orange-500/20 rounded-xl text-center hover:border-orange-500/50 hover:-translate-y-1 transition-all duration-300 cursor-default"
+                                    >
+                                        <div className="mb-1.5 flex justify-center">
+                                            {tech.icon}
+                                        </div>
+                                        <span className="text-xs text-gray-400">{tech.name}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right: code block */}
+                    <div className="hidden lg:flex items-start justify-center relative">
+                        <div className="relative">
+                            <SyntaxHighlighter
+                                language="python"
+                                style={oneDark}
+                                customStyle={{
+                                    background: "rgba(18, 18, 18, 0.9)",
+                                    border: "1px solid rgba(249, 115, 22, 0.25)",
+                                    borderRadius: "14px",
+                                    padding: "28px",
+                                    width: "420px",
+                                    fontSize: "13px",
+                                    fontFamily:
+                                        "ui-monospace, SFMono-Regular, monospace",
+                                    lineHeight: "1.65",
+                                }}
+                            >
+                                {codeSnippet}
+                            </SyntaxHighlighter>
+                            {/* glow behind code block */}
+                            <div className="absolute inset-0 -z-10 flex justify-center items-center pointer-events-none">
+                                <div className="w-[460px] h-[460px] bg-orange-500/8 rounded-full blur-3xl" />
                             </div>
                         </div>
                     </div>

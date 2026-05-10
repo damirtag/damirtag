@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-import { Cursor as CustomCursor } from "@/ui/cursor";
-import { Header } from "@/widgets/header";
 import { Footer } from "@/widgets/footer";
+import { CrystalBackground } from "@/shared/components/crystal-background";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -18,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
     title: "@damirtag's bio",
-    description: "Experienced web developer",
+    description: "Experienced software engineer",
 };
 
 export default function RootLayout({
@@ -28,11 +27,17 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-neutral-950 text-white`}>
-                <CustomCursor />
-                <Header />
-                <main>{children}</main>
-                <Footer />
+            <body
+                className={`${geistSans.variable} ${geistMono.variable} antialiased bg-neutral-950 text-white`}
+            >
+                {/* Crystal layer — fixed, behind everything */}
+                <CrystalBackground />
+
+                {/* Page content sits above the crystal layer */}
+                <div className="relative" style={{ zIndex: 1 }}>
+                    <main>{children}</main>
+                    <Footer />
+                </div>
             </body>
         </html>
     );

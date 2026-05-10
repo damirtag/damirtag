@@ -1,57 +1,76 @@
-const HeroSection: React.FC = () => {
+"use client";
+
+import React from "react";
+import { TerminalPanel } from "./Terminal";
+import { ParallaxSection } from "@/shared/components/parallax-section";
+
+export const HeroSection: React.FC = () => {
     return (
-        <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-neutral-950">
-            {/* Фон — плавные линии */}
-            <div className="absolute inset-0 flex items-center justify-center">
-                <svg
-                    className="w-[150%] max-w-none opacity-20 animate-pulse-slow"
-                    viewBox="0 0 1440 320"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M0,96L60,122.7C120,149,240,203,360,197.3C480,192,600,128,720,101.3C840,75,960,85,1080,122.7C1200,160,1320,224,1380,256L1440,288"
-                        stroke="url(#grad1)"
-                        strokeWidth="2"
-                        fill="none"
-                    />
-                    <defs>
-                        <linearGradient id="grad1" x1="0" x2="1" y1="0" y2="0">
-                            <stop stopColor="#fb923c" />
-                            <stop offset="1" stopColor="#f97316" />
-                        </linearGradient>
-                    </defs>
-                </svg>
-            </div>
+        <ParallaxSection
+            id="home"
+            speed={0.18}
+            aria-label="Hero section"
+        >
 
-            {/* Контент */}
-            <div className="relative z-10 text-center px-4">
-                <h1 className="text-6xl md:text-8xl font-extrabold tracking-tight">
-                    <span className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-transparent">Web Developer</span>
-                </h1>
-
-                <p className="mt-6 text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto">
-                    Crafting fast, scalable, and creative digital experiences
-                </p>
-
-                <div className="mt-8 flex justify-center gap-4 text-sm">
-                    <a
-                        href="/projects"
-                        className="px-6 py-3 rounded-2xl bg-orange-500 text-white font-medium shadow-md hover:bg-orange-400 transition"
-                    >
-                        View Projects
-                    </a>
-                    <a
-                        href="/contact"
-                        className="px-6 py-3 rounded-2xl border border-orange-500 text-orange-400 font-medium hover:bg-orange-500/10 transition"
-                    >
-                        Contact Me
-                    </a>
+            {/* Content */}
+            <div className="relative z-10 w-full flex flex-col lg:flex-row items-center gap-4 px-4 md:px-1 py-1 max-w-7xl mx-auto">
+                {/* Info */}
+                <div className="flex-1 flex flex-col justify-center gap-8 px-2 lg:px-10">
+                    <InfoBlock />
                 </div>
+                
+                {/* Terminal */}
+                <div className="flex-1 lg:max-w-[600px] flex items-center justify-center">
+                    <TerminalPanel />
+                </div>
+
+                
             </div>
-            <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl animate-pulse-slow" />
-        </section>
+        </ParallaxSection>
     );
 };
 
-export default HeroSection;
+const InfoBlock: React.FC = () => (
+    <div className="flex flex-col gap-6">
+        <div>
+            <p className="text-xs font-mono tracking-[0.3em] uppercase text-orange-500/70 mb-3">
+                01 / home
+            </p>
+            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-none">
+                <span className="bg-gradient-to-br from-orange-300 via-orange-500 to-orange-700 bg-clip-text text-transparent">
+                    Software
+                </span>
+                <br />
+                <span className="text-neutral-100">Engineer</span>
+            </h1>
+        </div>
+
+        <p className="text-neutral-400 text-lg leading-relaxed max-w-md">
+            Crafting fast, scalable, and creative digital experiences — one commit at a time.
+        </p>
+
+        <div className="flex flex-col gap-2 font-mono text-sm text-neutral-500">
+            <StatusRow icon="◈" label="Status" value="Open to work" accent />
+            <StatusRow icon="◉" label="Location" value="Almaty, Kazakhstan" />
+            <StatusRow icon="◐" label="Stack" value="typescript golang python" />
+        </div>
+    </div>
+);
+
+interface StatusRowProps {
+    icon: string;
+    label: string;
+    value: string;
+    accent?: boolean;
+}
+
+const StatusRow: React.FC<StatusRowProps> = ({ icon, label, value, accent }) => (
+    <div className="flex items-center gap-3">
+        <span className={accent ? "text-orange-400" : "text-neutral-600"}>{icon}</span>
+        <span className="text-neutral-600 w-20">{label}</span>
+        <span className={accent ? "text-orange-300" : "text-neutral-400"}>{value}</span>
+        {accent && (
+            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+        )}
+    </div>
+);

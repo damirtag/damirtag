@@ -14,7 +14,7 @@ export const HeroSection: React.FC = () => {
         >
 
             {/* Content */}
-            <div className="relative z-10 w-full flex flex-col lg:flex-row items-center gap-4 px-4 md:px-1 py-1 max-w-7xl mx-auto">
+            <div className="relative z-10 w-full flex flex-col lg:flex-row items-center gap-4 px-4 md:px-1 pt-10 sm:pt-6 lg:pt-1 pb-1 max-w-7xl mx-auto">
                 {/* Info */}
                 <div className="flex-1 flex flex-col justify-center gap-8 px-2 lg:px-10">
                     <InfoBlock />

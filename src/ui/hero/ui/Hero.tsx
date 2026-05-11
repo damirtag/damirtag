@@ -10,6 +10,7 @@ export const HeroSection: React.FC = () => {
         <section
             id="home"
             aria-label="Hero section"
+            className="relative min-h-screen flex items-center"
         >
 
             {/* Content */}

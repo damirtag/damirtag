@@ -153,7 +153,7 @@ const ProjectsSection: React.FC = () => (
             {/* Header */}
             <div className="mb-14">
                 <p className="text-xs font-mono tracking-[0.3em] uppercase text-orange-500/60 mb-2">
-                    03 / projects
+                    02 / projects
                 </p>
                 <h2 className="text-4xl font-bold text-white">
                     Work{" "}

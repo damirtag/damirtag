@@ -1,17 +1,49 @@
-export const SilhouetteSvg = () => (
-    <svg
-        id="usa-ridgeline"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
+"use client";
+import { useEffect, useRef } from "react";
+
+interface SilhouetteSvgProps {
+  triggerRef: React.RefObject<HTMLElement | null>;
+}
+
+export const SilhouetteSvg = ({triggerRef}: SilhouetteSvgProps) => {
+  const pathRef = useRef<SVGPathElement>(null);
+
+  useEffect(() => {
+    const path = pathRef.current;
+    const trigger = triggerRef?.current;
+    if (!path || !trigger) return;
+
+    // Hardcode a safe length — avoids getTotalLength() returning 0 before paint
+    const length = 10000;
+    path.style.strokeDasharray = `${length}`;
+    path.style.strokeDashoffset = `${length}`;
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+        if (!entries[0].isIntersecting) return;
+        path.style.transition = "stroke-dashoffset 6s ease";
+        path.style.strokeDashoffset = "0";
+        observer.disconnect();
+        },
+        { threshold: 0.3 }
+    );
+
+    observer.observe(trigger);
+  }, [triggerRef]);
+
+  return (
+    <div className="w-full">
+      <svg
         viewBox="0 0 2915.6 120"
-        xmlSpace="preserve"
-        className="will-change-transform [transform:translateZ(0)] in-view"
-    >
+        preserveAspectRatio="xMidYMid slice"
+        className="w-full"
+        >
         <path
-            fill="#ff6900"
+            ref={pathRef}
+            className="silhouette-path"
             stroke="#ff6900"
             strokeWidth="3"
-            strokeMiterlimit="10"
+            fill="none"
             d="M1,116.8h118.7c21.6-9.6,26.3-12.9,44.3-22.3c15.3-8,16.9-19.3,20.3-23.4c3.5-4.1,4.8-6,6.5-6.7
     c2.1-0.8,4-2.2,5.5-4c1.4-2,3.4-3.5,5.7-4.5c2-0.6,3.6-1.9,4.8-3.7c0.8-1.5,2.5-4.8,4.8-3.5c1.4,0.7,2.8,1.6,4.1,2.5
     c1.1,0.9,2.1,1.8,3.1,2.6s2.4,1.9,3.2,2s3.4,1.9,4.4,2.2c0.9,0.2,3.6-0.8,4.3-1.3c0.9-0.5,2-0.8,3.1-0.9c0.7,0,1.8-1.2,2.8-1.3
@@ -50,4 +82,6 @@ export const SilhouetteSvg = () => (
     s8.2,1.1,9.9,2.1l1728.1-0.1"
         ></path>
     </svg>
-);
+    </div>
+    )
+}

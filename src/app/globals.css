@@ -24,3 +24,18 @@ body {
     color: var(--foreground);
     font-family: var(--font-sans);
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+.silhouette-path {
+  fill: none;
+  filter: drop-shadow(0 0 6px rgba(255,105,0,.6));
+}
+
+@keyframes drawMountain {
+  to {
+    stroke-dashoffset: 0;
+  }
+}

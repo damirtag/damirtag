@@ -16,35 +16,50 @@ const AboutSection: React.FC = () => {
         return years;
     }, []);
 
-    const codeSnippet = `from typing import Tuple, List, Dict
+    function getYearsOfExperience(startYear: number): number {
+        const now = new Date();
+        return now.getFullYear() - startYear
+    }
 
-class damirTAG:
-    def __init__(self):
-        self.hatred     = True
-        self.narciss    = False
-        self.lazy       = False
+    const experience = getYearsOfExperience(2023)
 
-class Attributes(damirTAG):
-    def __init__(self):
-        super().__init__()
+    const codeSnippet = `type LifeTuple = [string[], number, string];
 
-    @property
-    def life(self) -> Tuple[List[str], int, str]:
-        interests   = [
-            'code', 'mountains', 'sport', 'tech'
-        ]
-        age         = ${age}
-        location    = "almaty, kz"
-        return interests, age, location
+class Damir {
+  hatred: boolean;
 
-    @property
-    def personality(self) -> Dict[str, bool]:
-        return {
-            "spontaneous"       : False,
-            "night_owl"         : True,
-            "coffee_addicted"   : False,
-            "hyperfix_addicted" : True
-        }`;
+  constructor() {
+    this.hatred = true;
+  }
+}
+
+class Attributes extends Damir {
+  constructor() {
+    super();
+  }
+
+  get life(): LifeTuple {
+    const interests: string[] = [
+      "code",
+      "mountains",
+      "sport",
+      "tech",
+    ];
+
+    const age: number = ${age}
+    const location: string = "almaty, kz";
+
+    return [interests, age, location];
+  }
+
+  get personality(): Record<string, boolean> {
+    return {
+      night_owl: true,
+      coffee_addicted: true,
+      hyperfix_addicted: true,
+    };
+  }
+}`;
 
     return (
         <section
@@ -56,7 +71,7 @@ class Attributes(damirTAG):
                 {/* Section header */}
                 <div className="mb-14">
                     <p className="text-xs font-mono tracking-[0.3em] uppercase text-orange-500/60 mb-2">
-                        02 / about
+                        01 / about
                     </p>
                     <h2 className="text-4xl font-bold text-white">
                         Who I{" "}
@@ -75,7 +90,7 @@ class Attributes(damirTAG):
                                 <span className="text-orange-400 font-medium">
                                     {age}-year-old backend developer
                                 </span>{" "}
-                                from Almaty with 2+ years of commercial experience building
+                                from Almaty with {experience}+ years of commercial experience building
                                 high-load distributed systems. Specialized in microservice
                                 architecture, event-driven systems, and performance optimization.
                             </p>
@@ -115,7 +130,7 @@ class Attributes(damirTAG):
                     <div className="hidden lg:flex items-start justify-center relative">
                         <div className="relative">
                             <SyntaxHighlighter
-                                language="python"
+                                language="typescript"
                                 style={oneDark}
                                 customStyle={{
                                     background: "rgba(18, 18, 18, 0.9)",

@@ -1,10 +1,13 @@
 "use client";
 
+import { useRef } from "react";
 import { MessageCircle, Mail, Github } from "lucide-react";
 import { SilhouetteSvg } from "./Footer.silhouette";
 import { usePathname } from "next/navigation";
 
 const Footer: React.FC = () => {
+    const footerRef = useRef<HTMLElement>(null)
+
     const contactLinks = [
         { icon: Mail, label: "Email", href: "mailto:damirtagilbayev17@gmail.com" },
         { icon: MessageCircle, label: "Telegram", href: "https://t.me/damirtag" },
@@ -18,7 +21,7 @@ const Footer: React.FC = () => {
     }
 
     return (
-        <footer className="relative" id="contact">
+        <footer ref={footerRef} className="relative" id="contact">
             <div className="max-w-full mx-auto px-6 py-16 relative z-10">
                 <div className="flex flex-col items-center gap-8">
                     {/* Heading */}
@@ -52,7 +55,7 @@ const Footer: React.FC = () => {
 
                     {/* Mountain Silhouette */}
                     <div className="absolute bottom-0 left-0 w-full">
-                        <SilhouetteSvg />
+                        <SilhouetteSvg triggerRef={footerRef} />
                     </div>
                 </div>
             </div>

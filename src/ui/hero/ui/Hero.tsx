@@ -7,9 +7,8 @@ import { ParallaxSection } from "@/shared/components/parallax-section";
 
 export const HeroSection: React.FC = () => {
     return (
-        <ParallaxSection
+        <section
             id="home"
-            speed={0.18}
             aria-label="Hero section"
         >
 
@@ -48,7 +47,7 @@ export const HeroSection: React.FC = () => {
                 className="opacity-70"
             />
             </a>
-        </ParallaxSection>
+        </section>
     );
 };
 

@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
 
                     {/* Bottom bar */}
                     <div className="w-full border-t border-neutral-800/50 pt-6 text-center text-xs text-gray-500">
-                        © {new Date().getFullYear()} Damir. Built with passion ⚡
+                        © {new Date().getFullYear()} damirtag
                     </div>
 
                     {/* Mountain Silhouette */}

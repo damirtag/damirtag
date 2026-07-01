@@ -9,5 +9,3 @@ Building digital experiences with code and creativity.
 ---
 
 _Currently working on something exciting..._
-
-[![My GitFut card](https://gitfut.com/damirtag.png)](https://gitfut.com/damirtag)

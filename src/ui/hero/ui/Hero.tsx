@@ -3,7 +3,6 @@
 import React, {useState} from "react";
 import { HiOutlineDownload, HiChevronDown } from "react-icons/hi";
 import { TerminalPanel } from "./Terminal";
-import { ParallaxSection } from "@/shared/components/parallax-section";
 
 export const HeroSection: React.FC = () => {
     return (
@@ -119,7 +118,7 @@ const InfoBlock: React.FC = () => {
                 🇬🇧 English version
               </a>
               <a
-                href="/assets/cv/ru/Damir_Tagilbayev_CV.pdf"
+                href="/assets/cv/ru/Damir_Tagilbayev_CV_RU.pdf"
                 target="_blank"
                 className="block px-4 py-3 text-sm text-neutral-300 hover:bg-neutral-800 transition"
               >

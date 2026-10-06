@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
                 <div className="flex flex-col items-center gap-8">
                     {/* Heading */}
                     <div className="text-center">
-                        <h2 className="text-3xl font-bold bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-transparent mb-3">
+                        <h2 className="text-3xl font-bold text-white mb-3">
                             Get In Touch
                         </h2>
                         <p className="text-gray-400">Ready to collaborate on your next project</p>
@@ -40,7 +40,7 @@ const Footer: React.FC = () => {
                                 href={link.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group flex flex-col items-center gap-2 text-gray-400 hover:text-orange-400 transition"
+                                className="group flex flex-col items-center gap-2 text-gray-400 hover:text-phos-400 transition"
                             >
                                 <link.icon className="w-6 h-6 group-hover:scale-110 transition-transform" />
                                 <span className="text-sm">{link.label}</span>

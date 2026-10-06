@@ -10,11 +10,11 @@ export const TerminalPanel: React.FC = () => {
 
     return (
         <div
-            className="relative flex flex-col h-[420px] w-full font-mono text-sm rounded-xl overflow-hidden border border-orange-500/20 bg-neutral-950/90 backdrop-blur-sm"
+            className="relative flex flex-col h-[420px] w-full font-mono text-sm rounded-xl overflow-hidden border border-phos-500/20 bg-ink-950/90 backdrop-blur-sm"
             onClick={focusInput}
         >
             {/* Title bar */}
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-orange-500/10 bg-neutral-900/60 shrink-0">
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-phos-500/10 bg-ink-900/60 shrink-0">
                 <span className="w-3 h-3 rounded-full bg-red-500/80" />
                 <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
                 <span className="w-3 h-3 rounded-full bg-green-500/80" />
@@ -33,7 +33,7 @@ export const TerminalPanel: React.FC = () => {
                             setInput(cmd);
                             inputRef.current?.focus();
                         }}
-                        className="px-2.5 py-0.5 text-xs rounded-md border border-orange-500/30 text-orange-400/80 hover:bg-orange-500/10 hover:text-orange-300 hover:border-orange-400/50 transition-all duration-150 cursor-pointer"
+                        className="px-2.5 py-0.5 text-xs rounded-md border border-phos-500/30 text-phos-400/80 hover:bg-phos-500/10 hover:text-phos-300 hover:border-phos-400/50 transition-all duration-150 cursor-pointer"
                     >
                         {cmd}
                     </button>
@@ -41,12 +41,12 @@ export const TerminalPanel: React.FC = () => {
             </div>
 
             {/* Output area */}
-            <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto px-4 pt-2 pb-1 scrollbar-thin scrollbar-thumb-orange-500/20 scrollbar-track-transparent">
+            <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto px-4 pt-2 pb-1 scrollbar-thin scrollbar-thumb-phos-500/20 scrollbar-track-transparent">
                 {lines.map((line, i) => (
                     <div key={i} className={lineClassName(line.type)}>
                         {line.type === "input" ? (
                             <>
-                                <span className="text-orange-400">
+                                <span className="text-phos-400">
                                     {line.content.startsWith("$ ")
                                         ? line.content.slice(0, 2)
                                         : ""}
@@ -66,21 +66,21 @@ export const TerminalPanel: React.FC = () => {
             </div>
 
             {/* Input row */}
-            <div className="flex items-center gap-2 px-4 py-3 border-t border-orange-500/10 shrink-0 bg-neutral-950/50">
-                <span className="text-orange-400 select-none">$</span>
+            <div className="flex items-center gap-2 px-4 py-3 border-t border-phos-500/10 shrink-0 bg-ink-950/50">
+                <span className="text-phos-400 select-none">$</span>
                 <input
                     ref={inputRef}
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className="flex-1 bg-transparent outline-none text-neutral-200 caret-orange-400 placeholder:text-neutral-600"
+                    className="flex-1 bg-transparent outline-none text-neutral-200 caret-phos-400 placeholder:text-neutral-600"
                     placeholder="type a command…"
                     autoComplete="off"
                     spellCheck={false}
                     aria-label="Terminal input"
                 />
-                <span className="w-2 h-4 bg-orange-400 animate-pulse opacity-70" />
+                <span className="w-2 h-4 bg-phos-400 animate-pulse opacity-70" />
             </div>
         </div>
     );

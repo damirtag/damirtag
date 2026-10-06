@@ -9,7 +9,7 @@ import { ParallaxSection } from "@/shared/components/parallax-section";
 const Portfolio: React.FC = () => {
     return (
         <div className="text-white min-h-screen overflow-x-hidden">
-            <main>
+            <div>
                 {/* Hero has its own parallax speed tuned for the viewport entry */}
                 <HeroSection />
 
@@ -28,21 +28,21 @@ const Portfolio: React.FC = () => {
                 >
                     <ProjectsSection />
                 </ParallaxSection>
-            </main>
+            </div>
 
             <style jsx global>{`
                 ::-webkit-scrollbar { width: 8px; }
-                ::-webkit-scrollbar-track { background: #1a1a1a; }
+                ::-webkit-scrollbar-track { background: #0a1610; }
                 ::-webkit-scrollbar-thumb {
-                    background: linear-gradient(180deg, #f97316, #fb923c);
+                    background: #16bc62;
                     border-radius: 4px;
                 }
                 ::-webkit-scrollbar-thumb:hover {
-                    background: linear-gradient(180deg, #ea580c, #f97316);
+                    background: #34d77b;
                 }
                 .scrollbar-thin::-webkit-scrollbar { width: 4px; }
-                .scrollbar-thumb-orange-500\/20::-webkit-scrollbar-thumb {
-                    background: rgba(249, 115, 22, 0.2);
+                .scrollbar-thumb-phos-500\/20::-webkit-scrollbar-thumb {
+                    background: rgba(52, 215, 123, 0.2);
                     border-radius: 9999px;
                 }
                 .scrollbar-track-transparent::-webkit-scrollbar-track {

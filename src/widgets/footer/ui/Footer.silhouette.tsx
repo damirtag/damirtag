@@ -41,7 +41,7 @@ export const SilhouetteSvg = ({triggerRef}: SilhouetteSvgProps) => {
         <path
             ref={pathRef}
             className="silhouette-path"
-            stroke="#ff6900"
+            stroke="#34d77b"
             strokeWidth="3"
             fill="none"
             d="M1,116.8h118.7c21.6-9.6,26.3-12.9,44.3-22.3c15.3-8,16.9-19.3,20.3-23.4c3.5-4.1,4.8-6,6.5-6.7

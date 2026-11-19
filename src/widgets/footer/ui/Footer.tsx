@@ -1,66 +1,117 @@
 "use client";
 
-import { useRef } from "react";
-import { MessageCircle, Mail, Github } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import {
+  CoffeeIcon,
+  EnvelopeSimpleIcon,
+  GithubLogoIcon,
+  LinkedinLogoIcon,
+  TelegramLogoIcon,
+} from "@phosphor-icons/react";
 import { SilhouetteSvg } from "./Footer.silhouette";
-import { usePathname } from "next/navigation";
+
+const CONTACTS = [
+  {
+    icon: EnvelopeSimpleIcon,
+    label: "Email",
+    cmd: "sudo mail damir",
+    href: "mailto:damirtagilbayev17@gmail.com",
+  },
+  {
+    icon: TelegramLogoIcon,
+    label: "Telegram",
+    cmd: "ping @damirtag",
+    href: "https://t.me/damirtag",
+  },
+  {
+    icon: GithubLogoIcon,
+    label: "GitHub",
+    cmd: "git clone damir",
+    href: "https://github.com/damirtag",
+  },
+  {
+    icon: LinkedinLogoIcon,
+    label: "LinkedIn",
+    cmd: "connect --formally",
+    href: "https://www.linkedin.com/in/damirtag",
+  },
+];
+
+const MESSAGES = [
+  "open to work and collaboration",
+  "replies faster than a cold start",
+  "200 OK, unlike your last deploy",
+  "will refactor for coffee",
+  "no microservices were harmed",
+  "yes, the hiker below is me",
+];
+
+const pad = (n: number) => String(n).padStart(2, "0");
 
 const Footer: React.FC = () => {
-    const footerRef = useRef<HTMLElement>(null)
+  const footerRef = useRef<HTMLElement>(null);
+  const [msg, setMsg] = useState(0);
+  const [uptime, setUptime] = useState(0);
 
-    const contactLinks = [
-        { icon: Mail, label: "Email", href: "mailto:damirtagilbayev17@gmail.com" },
-        { icon: MessageCircle, label: "Telegram", href: "https://t.me/damirtag" },
-        { icon: Github, label: "GitHub", href: "https://github.com/damirtag" },
-    ];
+  useEffect(() => {
+    const m = setInterval(() => setMsg((i) => (i + 1) % MESSAGES.length), 3200);
+    const u = setInterval(() => setUptime((s) => s + 1), 1000);
+    return () => {
+      clearInterval(m);
+      clearInterval(u);
+    };
+  }, []);
 
-    const pathname = usePathname();
+  return (
+    <footer ref={footerRef} id="contact" className="relative overflow-hidden">
+      <div className="reveal max-w-3xl mx-auto px-6 pt-24 pb-12 flex flex-col items-center gap-8 text-center">
+        <h2 className="text-xl md:text-3xl text-white">GET IN TOUCH</h2>
+        <p
+          key={msg}
+          className="footer-msg min-h-16 sm:min-h-8 text-2xl text-neutral-400"
+        >
+          &gt; {MESSAGES[msg]}
+          <span className="blink">_</span>
+        </p>
 
-    if (pathname === "/photos" || pathname.startsWith("/photos/")) {
-        return null;
-    }
+        <div className="flex flex-wrap justify-center gap-5">
+          {CONTACTS.map(({ icon: Icon, label, cmd, href }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-box group flex flex-col items-center gap-1 w-36 py-4 text-neutral-300 hover:text-phos-300"
+            >
+              <Icon
+                size={28}
+                weight="duotone"
+                className="text-phos-400 transition-transform duration-200 group-hover:-translate-y-1 group-hover:rotate-6"
+              />
+              <span className="text-xl">{label}</span>
+              <span className="text-base text-neutral-500 group-hover:text-phos-500">
+                $ {cmd}
+              </span>
+            </a>
+          ))}
+        </div>
 
-    return (
-        <footer ref={footerRef} className="relative" id="contact">
-            <div className="max-w-full mx-auto px-6 py-16 relative z-10">
-                <div className="flex flex-col items-center gap-8">
-                    {/* Heading */}
-                    <div className="text-center">
-                        <h2 className="text-3xl font-bold text-white mb-3">
-                            Get In Touch
-                        </h2>
-                        <p className="text-gray-400">Ready to collaborate on your next project</p>
-                    </div>
+        <div className="w-full border-t-2 border-dashed border-ink-700 pt-6 flex flex-wrap justify-center gap-x-6 gap-y-1 text-lg text-neutral-500">
+          <span>© {new Date().getFullYear()} damirtag</span>
+          <span className="inline-flex items-center gap-1.5">
+            built with{" "}
+            <CoffeeIcon size={18} weight="duotone" className="text-phos-500" />{" "}
+            and stubbornness
+          </span>
+          <span>
+            your uptime here: {pad(Math.floor(uptime / 60))}:{pad(uptime % 60)}
+          </span>
+        </div>
+      </div>
 
-                    {/* Links */}
-                    <div className="flex gap-10">
-                        {contactLinks.map((link) => (
-                            <a
-                                key={link.label}
-                                href={link.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group flex flex-col items-center gap-2 text-gray-400 hover:text-phos-400 transition"
-                            >
-                                <link.icon className="w-6 h-6 group-hover:scale-110 transition-transform" />
-                                <span className="text-sm">{link.label}</span>
-                            </a>
-                        ))}
-                    </div>
-
-                    {/* Bottom bar */}
-                    <div className="w-full border-t border-neutral-800/50 pt-6 text-center text-xs text-gray-500">
-                        © {new Date().getFullYear()} damirtag
-                    </div>
-
-                    {/* Mountain Silhouette */}
-                    <div className="absolute bottom-0 left-0 w-full">
-                        <SilhouetteSvg triggerRef={footerRef} />
-                    </div>
-                </div>
-            </div>
-        </footer>
-    );
+      <SilhouetteSvg triggerRef={footerRef} />
+    </footer>
+  );
 };
 
 export default Footer;

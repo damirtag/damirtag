@@ -1,5 +1,13 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { pixels } from "@/shared/lib/pixel";
+
+// Tiny hiker that walks the ridge. Feet sit at (0,0) so it rides the path.
+const HIKER_TOP = ["...HHH..", "..HHHHH.", "...SSSS.", ".bbGGGG.", ".bbGGGGS", "..bGGGG."];
+const LEGS_A = ["...P..P.", "..BB.BB."];
+const LEGS_B = ["....PP..", "....BB.."];
+const HIKER_COLORS = { H: "#6be8a0", S: "#e8b48a", G: "#16bc62", b: "#0e7841", P: "#a3a3a3", B: "#ededed" };
+const PX = 7;
 
 interface SilhouetteSvgProps {
   triggerRef: React.RefObject<HTMLElement | null>;
@@ -33,12 +41,15 @@ export const SilhouetteSvg = ({triggerRef}: SilhouetteSvgProps) => {
 
   return (
     <div className="w-full">
+      {/* viewBox height trimmed so the flat baseline lands on the page's bottom edge */}
       <svg
-        viewBox="0 0 2915.6 120"
-        preserveAspectRatio="xMidYMid slice"
-        className="w-full"
+        viewBox="0 0 2915.6 118.4"
+        preserveAspectRatio="xMinYMax slice"
+        className="pixel block w-full min-h-12 overflow-visible"
+        aria-hidden
         >
         <path
+            id="ridge"
             ref={pathRef}
             className="silhouette-path"
             stroke="#34d77b"
@@ -81,6 +92,16 @@ export const SilhouetteSvg = ({triggerRef}: SilhouetteSvgProps) => {
     c2.4,1.6,5.2,2.3,8,2.3c1.9,0,3.8,0.3,5.6,1.1c2.6,0.6,5.2,0.9,7.8,1c3.9,0.1,7.7,0.9,11.4,2.3c4.8,1.8,7.2,3.3,10.7,3.6
     s8.2,1.1,9.9,2.1l1728.1-0.1"
         ></path>
+        <g className="hiker">
+          <animateMotion dur="60s" repeatCount="indefinite">
+            <mpath href="#ridge" />
+          </animateMotion>
+          <g transform={`translate(${-4 * PX} ${-8 * PX - 1.5})`}>
+            {pixels(HIKER_TOP, HIKER_COLORS, PX)}
+            <g className="px-walk-a">{pixels(LEGS_A, HIKER_COLORS, PX, 0, 6 * PX)}</g>
+            <g className="px-walk-b">{pixels(LEGS_B, HIKER_COLORS, PX, 0, 6 * PX)}</g>
+          </g>
+        </g>
     </svg>
     </div>
     )

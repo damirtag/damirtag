@@ -15,7 +15,6 @@ export const useTerminal = () => {
     const [commandHistory, setCommandHistory] = useState<string[]>([]);
     const [, setHistoryIndex] = useState(-1);
     const scrollRef = useRef<HTMLDivElement>(null);
-    const bottomRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -25,25 +24,6 @@ export const useTerminal = () => {
         el.scrollTop = el.scrollHeight;
     }, [lines]);
 
-    useEffect(() => {
-        fetch("https://api.ipify.org?format=json")
-            .then((res) => res.json())
-            .then((data) => {
-                setLines([
-                    { type: "output", content: `connected from ${data.ip}` },
-                    { type: "output", content: 'type "help" to see available commands.' },
-                    { type: "empty", content: "" },
-                ]);
-            })
-            .catch(() => {
-                // silently fall back if fetch fails or is blocked
-                setLines([
-                    { type: "output", content: "connected." },
-                    { type: "output", content: 'type "help" to see available commands.' },
-                    { type: "empty", content: "" },
-                ]);
-            });
-    }, []);
 
     const pushLines = useCallback((newLines: TerminalLine[]) => {
         setLines((prev) => {
@@ -152,7 +132,6 @@ export const useTerminal = () => {
         setInput,
         handleKeyDown,
         focusInput,
-        bottomRef,
         scrollRef,
         inputRef,
     };

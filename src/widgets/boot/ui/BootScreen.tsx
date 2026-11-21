@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 
-const STEP_MS = 420; // between boot lines
-const BAR_MS = 1500; // progress bar fill, keep in sync with .boot-bar in globals.css
-const HOLD_MS = 1000; // pause on "welcome" before powering off
-const OFF_MS = 1000; // CRT off + overlay fade, keep in sync with globals.css
+const STEP_MS = 360; // between boot lines
+const BAR_MS = 1400; // progress bar fill, keep in sync with .boot-bar in globals.css
+const HOLD_MS = 900; // pause on "welcome" before powering off
+const OFF_MS = 900; // CRT off + overlay fade, keep in sync with globals.css
 const IP_LINE = 1; // boot waits here until /api/ip answers (or 2s pass)
 
 const bootLines = (ip?: string): [string, string | null][] => [
@@ -106,7 +106,6 @@ export function BootScreen() {
           </p>
         )}
         {shown < total && <span className="blink text-phos-400">█</span>}
-        <p className="mt-8 text-base text-neutral-500">press any key to skip</p>
       </div>
     </div>
   );

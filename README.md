@@ -9,3 +9,5 @@ Building digital experiences with code and creativity.
 ---
 
 _Currently working on something exciting..._
+
+![](https://komarev.com/ghpvc/?username=damirtag&color=000000&style=plastic&label=👀)

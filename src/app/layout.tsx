@@ -2,9 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Press_Start_2P, VT323 } from "next/font/google";
 import "./globals.css";
 
-import { Footer } from "@/widgets/footer";
 import { SITE_URL } from "@/shared/site";
-import { BootScreen } from "@/widgets/boot";
 
 // Pixel display font for headings, pixel terminal font for body text.
 const pressStart = Press_Start_2P({
@@ -110,11 +108,9 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSON_LD) }}
         />
-        <BootScreen />
         {/* Page content sits above the fixed dot grid (body::before) */}
         <div className="relative" style={{ zIndex: 1 }}>
-          <main>{children}</main>
-          <Footer />
+          {children}
         </div>
       </body>
     </html>

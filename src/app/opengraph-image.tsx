@@ -1,6 +1,4 @@
 import { ImageResponse } from "next/og";
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 
 export const alt = "Damir Tagilbayev — Backend Engineer";
 export const size = { width: 1200, height: 630 };
@@ -25,11 +23,6 @@ async function loadFont(weight: number, text: string): Promise<ArrayBuffer | nul
 }
 
 export default async function OpengraphImage() {
-    // Same contours as the site, with the lines turned up for a small thumbnail.
-    const topo = (await readFile(join(process.cwd(), "public/topo.svg"), "utf8"))
-        .replaceAll('stroke-opacity="0.1"', 'stroke-opacity="0.28"')
-        .replaceAll('stroke-opacity="0.2"', 'stroke-opacity="0.55"');
-
     const lines = {
         prompt: "~/damir $ whoami",
         name: "Damir Tagilbayev",
@@ -56,22 +49,6 @@ export default async function OpengraphImage() {
                     color: "#ededed",
                 }}
             >
-                <img
-                    src={`data:image/svg+xml;base64,${Buffer.from(topo).toString("base64")}`}
-                    width={1200}
-                    height={750}
-                    style={{ position: "absolute", top: -60, left: 0 }}
-                    alt=""
-                />
-                {/* Darken the left so the text sits on calm ground */}
-                <div
-                    style={{
-                        position: "absolute",
-                        inset: 0,
-                        display: "flex",
-                        background: `linear-gradient(90deg, ${INK} 0%, rgba(5,13,8,0.85) 45%, rgba(5,13,8,0) 100%)`,
-                    }}
-                />
                 <div
                     style={{
                         position: "relative",
